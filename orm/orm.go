@@ -45,18 +45,18 @@ func Init() {
 func NewEngine(driver, source string) (err error) {
 	db, err := sql.Open(driver, source)
 	if err != nil {
-		logger.Errorf("dialect %s Not Found", err)
+		logger.Error("dialect %s Not Found", err)
 		return
 	}
 	// Send a ping to make sure the database connection is alive.
 	if err = db.Ping(); err != nil {
-		logger.Errorf("dialect %s Not Found", err)
+		logger.Error("dialect %s Not Found", err)
 		return
 	}
 	// make sure the specific dialect exists
 	dial, ok := dialect.GetDialect(driver)
 	if !ok {
-		logger.Errorf("dialect %s Not Found", driver)
+		logger.Error("dialect %s Not Found", driver)
 		return
 	}
 	Orm = &Engine{db: db, dialect: dial}
@@ -120,7 +120,7 @@ func difference(a []string, b []string) (diff []string) {
 func (engine *Engine) Migrate(value interface{}) error {
 	_, err := engine.Transaction(func(s *session.Session) (result interface{}, err error) {
 		if !s.Model(value).HasTable() {
-			logger.Infof("table %s doesn't exist", s.RefTable().Name)
+			logger.Info("table %s doesn't exist", s.RefTable().Name)
 			return nil, s.CreateTable()
 		}
 		table := s.RefTable()
@@ -128,7 +128,7 @@ func (engine *Engine) Migrate(value interface{}) error {
 		columns, _ := rows.Columns()
 		addCols := difference(table.FieldNames, columns)
 		delCols := difference(columns, table.FieldNames)
-		logger.Infof("added cols %v, deleted cols %v", addCols, delCols)
+		logger.Info("added cols %v, deleted cols %v", addCols, delCols)
 
 		for _, col := range addCols {
 			f := table.GetField(col)

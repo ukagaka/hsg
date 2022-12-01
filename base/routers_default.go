@@ -40,7 +40,8 @@ func New() *Engine {
 // Default use Logger() & Recovery middlewares
 func Default() *Engine {
 	engine := New()
-	engine.Use(Logger(), Recovery())
+	engine.LoadHTMLGlob("internal/view/*")
+	engine.Static("/assets", "./static")
 	return engine
 }
 

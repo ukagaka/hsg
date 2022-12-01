@@ -57,10 +57,9 @@ func (s *Session) DB() CommonDB {
 // Exec raw sql with sqlVars
 func (s *Session) Exec() (result sql.Result, err error) {
 	defer s.Clear()
-	logger.Info(s.sql.String())
-	logger.Info(s.sqlVars)
+	logger.Info(s.sql.String(), s.sqlVars)
 	if result, err = s.DB().Exec(s.sql.String(), s.sqlVars...); err != nil {
-		logger.Error(err)
+		logger.Error(err.Error())
 	}
 	return
 }
@@ -68,17 +67,16 @@ func (s *Session) Exec() (result sql.Result, err error) {
 // QueryRow gets a record from db
 func (s *Session) QueryRow() *sql.Row {
 	defer s.Clear()
-	logger.Info(s.sql.String())
-	logger.Info(s.sqlVars)
+	logger.Info(s.sql.String(), s.sqlVars)
 	return s.DB().QueryRow(s.sql.String(), s.sqlVars...)
 }
 
 // QueryRows gets a list of records from db
 func (s *Session) QueryRows() (rows *sql.Rows, err error) {
 	defer s.Clear()
-	logger.Infof(s.sql.String(), s.sqlVars)
+	logger.Info(s.sql.String(), s.sqlVars)
 	if rows, err = s.DB().Query(s.sql.String(), s.sqlVars...); err != nil {
-		logger.Error(err)
+		logger.Error(err.Error())
 	}
 	return
 }

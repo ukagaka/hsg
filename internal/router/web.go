@@ -2,18 +2,21 @@ package router
 
 import (
 	"hxsg/base"
+	"hxsg/internal/controller"
 	"net/http"
 )
 
-func Web(r *base.Engine) {
+func InitRouter(r *base.Engine) {
+
+	r.GET("/login", controller.Login)
+	r.POST("/login", controller.LoginPost)
+
+	r.GET("/regist", controller.Regist)
+
+	r.POST("/regist", controller.RegistPost)
 
 	r.GET("/", func(c *base.Context) {
-		c.String(http.StatusOK, "Hello Geektutu\n")
-	})
-
-	r.GET("/panic", func(c *base.Context) {
-		names := []string{"geektutu"}
-		c.String(http.StatusOK, names[100])
+		c.String(http.StatusOK, "Hello world\n")
 	})
 
 }

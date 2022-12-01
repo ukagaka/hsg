@@ -2,6 +2,7 @@ package main
 
 import (
 	"hxsg/base"
+	"hxsg/internal/middleware"
 	"hxsg/internal/router"
 	"math/rand"
 	"runtime"
@@ -17,6 +18,8 @@ func main() {
 	container.InitData()
 
 	r := base.Default()
-	router.Web(r)
+	r.Use(middleware.LoggerMiddleware(), middleware.RecoveryMiddleware())
+	router.InitRouter(r)
+
 	r.Run(":9999")
 }

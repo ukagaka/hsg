@@ -1,12 +1,13 @@
-package base
+package middleware
 
 import (
+	"hxsg/base"
 	"log"
 	"time"
 )
 
-func Logger() HandlerFunc {
-	return func(c *Context) {
+func LoggerMiddleware() base.HandlerFunc {
+	return func(c *base.Context) {
 		// Start timer
 		t := time.Now()
 		// Process request
