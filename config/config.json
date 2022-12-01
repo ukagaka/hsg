@@ -1,0 +1,20 @@
+{
+  "logging": {
+    "level": "debug"
+  },
+  "main": {
+    "message": "Hello, Let's Go! Hello from the config file"
+  },
+  "server": {
+    "host": "localhost",
+    "port": 80
+  },
+  "database": {
+    "driver": "mysql",
+    "host": "127.0.0.1",
+    "username": "root",
+    "password": "123456",
+    "port" : 3306,
+    "dbname" : "xxjyuser"
+  }
+}
