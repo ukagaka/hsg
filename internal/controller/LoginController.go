@@ -24,5 +24,6 @@ func RegistPost(c *base.Context) {
 	data := map[string]interface{}{
 		"message": "哈哈哈，你错了",
 	}
+
 	c.HTML(http.StatusOK, "regist.html", data)
 }

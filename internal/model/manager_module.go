@@ -1,9 +1,13 @@
 package model
 
+import "hxsg/internal/model/User"
+
 var M = &ModuleManager{}
 
 type ModuleManager struct {
 	//这里初始化各种注册各种 model
+
+	UserModel User.UserModel
 	DefaultModuleManager
 }
 

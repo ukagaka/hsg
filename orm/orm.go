@@ -24,7 +24,7 @@ func GetDbConnectionString(host, username, password, dbname string, port int) st
 	return str
 }
 
-var Orm *Engine
+var Orm *session.Session
 
 func Init() {
 	driver, _ := config.Cfg.GetString("database:driver")
@@ -59,7 +59,8 @@ func NewEngine(driver, source string) (err error) {
 		logger.Error("dialect %s Not Found", driver)
 		return
 	}
-	Orm = &Engine{db: db, dialect: dial}
+	engine := &Engine{db: db, dialect: dial}
+	Orm = engine.NewSession()
 	logger.Info("Connect database success")
 	return
 }
